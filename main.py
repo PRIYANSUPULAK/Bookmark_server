@@ -1,4 +1,5 @@
 import requests
+import os
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import unquote,parse_qs
 #making a  dictionary
@@ -100,6 +101,7 @@ class shortener(BaseHTTPRequestHandler):
 
 
 if __name__=='__main__':
-    server_address=('',8000)
-    httpd=HTTPServer(server_address,shortener)
+    port = int(os.environ.get('PORT', 8000))   # Use PORT if it's there.
+    server_address = ('', port)
+    httpd = HTTPServer(server_address, shortener)
     httpd.serve_forever()
